@@ -1,12 +1,56 @@
-import React from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import Base from '../components/Base'
 import Product from '../components/Product'
 import { CartState } from '../context/Context'
 import data from '../products/Products'
+import { myAxios } from '../services/helper';
 const Cart = () => {
 
- const {state}=CartState()
- //console.log(state.products);
+ const {state, dispatch}=CartState()
+
+ const [scrapData, setScrapData] = useState([]);
+
+  let Token = JSON.parse(localStorage.getItem("data"));
+
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + Token.token,
+  };
+  const [loading, setLoading] = useState(true);
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try{
+      let res = await myAxios.get('/apiScrapMaterial/getAllScrapMaterial', { headers })
+    
+      console.log(res.data);
+      let data={
+        paper: res.data.slice(0, 12),
+    
+        plastic:  res.data.slice(12, 24),
+    
+        metal:  res.data.slice(24, 35),
+    
+        Ewaste:  res.data.slice(35, 36),
+    
+        others:  res.data.slice(36, 38),
+    }
+    console.log(data)
+      dispatch({
+        type: "SET_PRODUCTS",
+        payload: data
+      })
+      }catch(error){
+        console.error(error.message);
+      }
+      setLoading(false);   
+      }
+    
+    fetchData();
+  }, [dispatch])
+
     return (
         <>
             <Base></Base>
@@ -28,7 +72,7 @@ const Cart = () => {
                         </div>
                         <div className="col-sm-9 col-lg-9">
                             <div className="row">
-                                <Product paperData={state.products} />
+                                <Product paperData={state.products.paper} />
                             </div>
                         </div>
                     </div>
@@ -50,7 +94,7 @@ const Cart = () => {
 
                         <div className="col-sm-9 col-lg-9">
                             <div className="row">
-                            <Product paperData={state.products} />
+                            <Product paperData={state.products.plastic} />
                             </div>
                         </div>
                     </div>
@@ -72,7 +116,7 @@ const Cart = () => {
 
                         <div className="col-sm-9 col-lg-9">
                             <div className="row">
-                                <Product paperData={state.products} />
+                                <Product paperData={state.products.metals} />
                             </div>
                         </div>
                     </div>
@@ -93,7 +137,7 @@ const Cart = () => {
 
                         <div className="col-sm-9 col-lg-9">
                             <div className="row">
-                                <Product paperData={state.products} />
+                                <Product paperData={state.products.Ewaste} />
                             </div>
                         </div>
                     </div>
@@ -114,7 +158,7 @@ const Cart = () => {
 
                         <div className="col-sm-9 col-lg-9">
                             <div className="row">
-                                <Product paperData={state.products} />
+                                <Product paperData={state.products.others} />
                             </div>
                         </div>
                     </div>

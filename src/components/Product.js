@@ -13,7 +13,7 @@ const Product = (props) => {
     return (
         <>
 
-            {
+            {   props.paperData && 
                 props.paperData.map((data, index) => {
                     return (
                         <div className="col-lg-3 col-6 mb-4 pb-4 px-4" key={index}>

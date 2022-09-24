@@ -19,7 +19,7 @@ const Fromdb = () => {
     };
     
     //console.log(scrapMaterialData().data);
-    console.log(scrapData);
+   // console.log(scrapData);
     
        const data=scrapData.slice(0,12).map(da =>{ return "id:"+da.id+" name:"+da.name+" price:"+da.price });
    
