@@ -29,13 +29,13 @@ const Cart = () => {
       let data={
         paper: res.data.slice(0, 12),
     
-        plastic:  res.data.slice(12, 24),
+        plastic:  res.data.slice(12, 23),
     
-        metal:  res.data.slice(24, 35),
+        metals:  res.data.slice(23, 34),
     
-        Ewaste:  res.data.slice(35, 36),
+        Ewaste:  res.data.slice(34, 35),
     
-        others:  res.data.slice(36, 38),
+        others:  res.data.slice(35, 38),
     }
     console.log(data)
       dispatch({

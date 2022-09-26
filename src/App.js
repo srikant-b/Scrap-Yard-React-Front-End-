@@ -11,11 +11,14 @@ import ScrapMaterial from './pages/ScrapMaterial'
 import Cart from './pages/Cart';
 
 import Fromdb from './products/Fromdb';
+import About from './pages/About';
+import ScrapYardNavbar from './components/ScrapYardNavbar';
 
 
 function App() {
   return (
     <>
+      {/* <ScrapYardNavbar/> */}
       <BrowserRouter>
       <Routes>
           <Route path="/" element={<Home />}/>
@@ -25,6 +28,7 @@ function App() {
           <Route path='/cart' element={<Cart/>}/>
           <Route path="/scrapMaterial" element={<ScrapMaterial/>}/>
           <Route path='/fromdb' element={<Fromdb/>}/>
+          <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
     </>
